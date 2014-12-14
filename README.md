@@ -1,5 +1,6 @@
 Prim's Algorithm:
 
+
 #include <stdio.h>
 #define inf 10000
 #define NIL -1
