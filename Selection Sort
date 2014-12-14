@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <time.h>
+
+int A[1000];
+
+int selection_sort(int n){
+    int j, t, k, temp, small, pos, i;
+    for(k=1; k<n; k++)
+    {
+        small=A[k-1];
+        pos=k-1;
+        for(j=k; j<n; j++)
+        {
+            if(A[j]<small)
+            {
+                small=A[j];
+                pos=j;
+            }
+        }
+        if(pos!=k-1)
+        {
+            temp=A[k-1];
+            A[k-1]=A[pos];
+            A[pos]=temp;
+        }
+    }
+}
+
+int main()
+{
+    clock_t start, end;
+    freopen("in.txt", "r", stdin);
+    freopen("out.txt", "w", stdout);
+    int  i,n;
+    scanf("%d", &n);
+    for(i=0; i<n; i++)
+    {
+        scanf("%d", &A[i]);
+    }
+    start=clock();
+    selection_sort(n);
+    end=clock();
+    double cpu_time_used=((double)(end-start))/CLOCKS_PER_SEC;
+    printf("Execution Time: %.3lf Seconds\n", cpu_time_used);
+    for(i=0; i<n; i++)
+        printf("%d ", A[i]);
+    return 0;
+}
