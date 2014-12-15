@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+int length, heapsize;
+void max_heapify(int A[], int i)
+{
+    int l,r,largest,temp ;
+    l=2*i;
+    r=2*i+1;
+    if(l<=heapsize && A[l]>A[i])
+    {
+         largest=l;
+    }
+    else
+     largest=i;
+
+    if(r<= heapsize && A[r]>A[largest])
+     largest=r;
+    if(largest!=i)
+    {
+         temp=A[i];
+         A[i]=A[largest];
+         A[largest]=temp;
+         max_heapify(A,largest);
+    }
+}
+void build_max_heap(int A[])
+{
+     heapsize=length;
+     int i=length/2;
+     for( ; i>=1; i--)
+          max_heapify(A,i);
+}
+void heap_sort(int A[])
+{
+     build_max_heap(A);
+     int temp, i;
+     for(i=length; i>=2; i--)
+     {
+          temp=A[1];
+          A[1]=A[i];
+          A[i]=temp;
+          heapsize--;
+          max_heapify(A,1);
+     }
+}
+
+int main()
+{
+     int A[100], i;
+     scanf("%d", &length);
+     for(i=1; i<=length; i++)
+          scanf("%d", &A[i]);
+
+     heap_sort(A);
+
+     for(i=1; i<=length; i++)
+          printf("%d", A[i]);
+
+     return 0;
+}
+
