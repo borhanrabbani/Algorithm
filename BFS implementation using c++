@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+vector <int> G[100];
+void bfs(int n, int src)
+{
+    queue< int >Q;
+    Q.push(src);
+    int visited[100]={0}, level[100];
+    int parent[100];
+    visited[src]=1;
+    level[src]=0;
+    while(!Q.empty())
+    {
+        int u=Q.front();
+        for(int i=0; i<G[u].size(); i++)
+        {
+            int v=G[u][i];
+            if(!visited[v])
+            {
+                level[v]=level[u]+1;
+                parent[v]=u;
+                visited[v]=1;
+                Q.push(v);
+            }
+        }
+        Q.pop();
+    }
+    for(int i=1; i<=n; i++)
+        printf("%d to %d distance %d\n", src, i, level[i]);// এইবার দেখো খেলা । কি জিনিশ বানাইছো উস্তাদ
+}
+int main()
+{
+    int N,E,i;
+    freopen("bfs.txt", "r", stdin);
+    scanf("%d%d", &N,&E);//ফাইল থেকে  নোড আর এজ  সংখ্যা  ইনপুট  নিতেছে
+    for(i=0; i<E; i++)
+    {
+        int x,y;// এরপর একটা  একটা করে নোড ইনপুট দে
+        scanf("%d%d", &x,&y);
+        G[x].push_back(y);
+        G[y].push_back(x);
+    }
+    bfs(N,1);
+}
